@@ -16,16 +16,24 @@
         android:layout_height="wrap_content"
         android:text="Guessing game" />
 
-    <Button
-        android:id="@+id/buttonYes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickYes" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/buttonNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickNo" />
+        <Button
+            android:id="@+id/buttonYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/yes"
+            android:onClick="clickYes" />
+
+        <Button
+            android:id="@+id/buttonNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no"
+            android:onClick="clickNo" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -13,16 +13,16 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
 
     public GameBoardPresenter(GameBoardContract.View mView) {
         this.mView = mView;
-        GameBoard.setup("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
-        gameBoard = GameBoard.newGame();
+        GameBoard.setup("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        gameBoard = GameBoard.createGame();
     }
 
     // GameBoardContract.UserActionsListener
     @Override
     public void newGame() {
         mNewAnimal = null;
-        gameBoard.start();
-        mView.showWelcomeMessage("Pense em algum animal...");
+        gameBoard.newGame();
+        mView.showWelcomeMessage("Think about an animal...");
     }
 
     // GameBoardContract.UserActionsListener
@@ -39,10 +39,10 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
 
         if(gameBoard.hasFinished()) {
             if(gameBoard.hasVictory()) {
-                mView.finishGame("I won again!");
+                mView.finishGame("I win again!");
 
             } else {
-                mView.showAddNewAnimal("Animal?");
+                mView.showAddNewAnimal("What was the animal that you thought about?");
             }
 
         } else {
@@ -53,15 +53,15 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
 
     // GameBoardContract.UserActionsListener
     @Override
-    public void animal(String name) {
+    public void addAnimal(String name) {
         mNewAnimal = name;
-        mView.showAddNewAnimalQuestion("Question?");
+        mView.showAddNewAnimalQuestion("A " + name + "_________ but a " + gameBoard.getQuestionText() + " does not.") ;
     }
 
     // GameBoardContract.UserActionsListener
     @Override
-    public void question(String text) {
+    public void addQuestion(String text) {
         gameBoard.addAnimal(mNewAnimal, text);
-        mView.finishGame("I lost!");
+        mView.finishGame("Let's try again!");
     }
 }

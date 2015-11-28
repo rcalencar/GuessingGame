@@ -17,7 +17,7 @@ public class GameBoardUnitTest {
 
     public static final String LIVES_IN_WATER = "lives in water";
     public static final String NEMO = "Nemo";
-    public static final String GOT_LOST = "gets lost";
+    public static final String GETS_LOST = "gets lost";
     public static final String SHARK = "shark";
     public static final String MONKEY = "monkey";
     public static final String DORI = "Dori";
@@ -25,7 +25,7 @@ public class GameBoardUnitTest {
 
     @Before
     public void setup() {
-        GameBoard.setup("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        GameBoard.setup("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
     }
 
     @Test
@@ -36,8 +36,8 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.TRUE);
 
-        GameBoard board = GameBoard.newGame();
-        board.start();
+        GameBoard board = GameBoard.createGame();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
@@ -52,19 +52,19 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoard board = GameBoard.newGame();
-        board.start();
+        GameBoard board = GameBoard.createGame();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
         assertFalse(board.hasVictory());
 
-        board.addAnimal(NEMO, GOT_LOST);
+        board.addAnimal(NEMO, GETS_LOST);
 
-        answers.put(GOT_LOST, Boolean.FALSE);
+        answers.put(GETS_LOST, Boolean.FALSE);
         answers.put(SHARK, Boolean.TRUE);
 
-        board.start();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
@@ -78,8 +78,8 @@ public class GameBoardUnitTest {
         HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
 
-        GameBoard board = GameBoard.newGame();
-        board.start();
+        GameBoard board = GameBoard.createGame();
+        board.newGame();
         playA_Game(board, answers);
 
         assertFalse(board.hasFinished());
@@ -94,23 +94,23 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoard board = GameBoard.newGame();
+        GameBoard board = GameBoard.createGame();
 
         // 1st round
-        board.start();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
         assertFalse(board.hasVictory());
 
-        System.out.println("Adding " + NEMO + " - " + GOT_LOST);
-        board.addAnimal(NEMO, GOT_LOST);
+        System.out.println("Adding " + NEMO + " - " + GETS_LOST);
+        board.addAnimal(NEMO, GETS_LOST);
 
-        answers.put(GOT_LOST, Boolean.TRUE);
+        answers.put(GETS_LOST, Boolean.TRUE);
         answers.put(NEMO, Boolean.TRUE);
 
         // 2nd round
-        board.start();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
@@ -119,7 +119,7 @@ public class GameBoardUnitTest {
         answers.put(NEMO, Boolean.FALSE);
 
         // 3rd round
-        board.start();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
@@ -132,7 +132,7 @@ public class GameBoardUnitTest {
         answers.put(IS_BLUE, Boolean.TRUE);
 
         // 4th round
-        board.start();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());
@@ -149,8 +149,8 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.FALSE);
         answers.put(MONKEY, Boolean.TRUE);
 
-        GameBoard board = GameBoard.newGame();
-        board.start();
+        GameBoard board = GameBoard.createGame();
+        board.newGame();
         playA_Game(board, answers);
 
         assertTrue(board.hasFinished());

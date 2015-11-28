@@ -20,13 +20,12 @@ interface GameBoardContract {
     interface UserActionsListener {
         void newGame();
 
-        // GameBoardContract.UserActionsListener
         void startGame();
 
         void answer(boolean answer);
 
-        void animal(String name);
+        void addAnimal(String name);
 
-        void question(String text);
+        void addQuestion(String text);
     }
 }

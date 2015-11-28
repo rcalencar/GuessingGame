@@ -1,5 +1,7 @@
 package com.example.rodrigo.guessinggame.model;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by rodrigo on 22/11/15.
  */
@@ -21,12 +23,12 @@ public class GameBoard {
         GameBoard.setup = true;
     }
 
-    public static GameBoard newGame() {
+    public static GameBoard createGame() {
         if(!setup) throw new IllegalStateException("Must call setup before getInstance.");
         return new GameBoard();
     }
 
-    public void start() {
+    public void newGame() {
         currentQuestion = startQuestion;
         finished = false;
     }
@@ -58,11 +60,21 @@ public class GameBoard {
 
     public void addAnimal(String animalName, String newQuestionText) {
         Question parent = currentQuestion.getParent();
-        Question parentYes = parent.getYes();
 
-        Question _new = new Question(newQuestionText, new Question(animalName), parentYes);
+        if(parent.getYes() == currentQuestion) {
+            Question question = parent.getYes();
+            Question _new = newQuestion(animalName, newQuestionText, question);
+            parent.setYes(_new);
+        } else {
+            Question question = parent.getNo();
+            Question _new = newQuestion(animalName, newQuestionText, question);
+            parent.setNo(_new);
+        }
+    }
 
-        parent.setYes(_new);
+    @NonNull
+    private Question newQuestion(String animalName, String newQuestionText, Question parentYes) {
+        return new Question(newQuestionText, new Question(animalName), parentYes);
     }
 
     public boolean hasFinished() {

@@ -24,7 +24,9 @@ public class GameBoard {
     }
 
     public static GameBoard createGame() {
-        if(!setup) throw new IllegalStateException("Must call setup before getInstance.");
+        if(!setup){
+            throw new IllegalStateException("Must call setup before getInstance.");
+        }
         return new GameBoard();
     }
 

@@ -27,6 +27,8 @@ public class PrintUtil {
         }
 
         String t = s + " / " + q.getQuestionText() + "?";
-        if(fullPath) System.out.println(t.substring(3, t.length()));
+        if(fullPath) {
+            System.out.println(t.substring(3, t.length()));
+        }
     }
 }

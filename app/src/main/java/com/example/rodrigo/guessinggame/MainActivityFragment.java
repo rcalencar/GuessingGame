@@ -20,6 +20,7 @@ import android.widget.TextView;
 public class MainActivityFragment extends Fragment implements GameBoardContract.View {
 
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
+    public static final String DIALOG_FRAGMENT_NAME = "dialog";
     private GameBoardPresenter mActionsListener;
     private String mText;
 
@@ -53,7 +54,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickYes(v);
+                clickYes();
             }
         });
 
@@ -61,7 +62,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickNo(v);
+                clickNo();
             }
         });
 
@@ -85,7 +86,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
                 mActionsListener.startGame();
             }
         });
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
     // GameBoardContract.View
@@ -103,7 +104,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
                 mActionsListener.newGame();
             }
         });
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
     // GameBoardContract.View
@@ -117,7 +118,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
                 mActionsListener.addAnimal(editText.getText().toString());
             }
         });
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
     // GameBoardContract.View
@@ -130,14 +131,14 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
                 mActionsListener.addQuestion(editText.getText().toString());
             }
         });
-        newFragment.show(getFragmentManager(), "dialog");
+        newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
-    private void clickYes(View view) {
+    private void clickYes() {
         mActionsListener.answer(true);
     }
 
-    private void clickNo(View view) {
+    private void clickNo() {
         mActionsListener.answer(false);
     }
 
@@ -179,8 +180,10 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
 
         @Override
         public void onDestroyView() {
-            if (getDialog() != null && getRetainInstance())
+            if (getDialog() != null && getRetainInstance()){
                 getDialog().setDismissMessage(null);
+            }
+
             super.onDestroyView();
         }
     }

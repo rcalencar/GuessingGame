@@ -2,13 +2,13 @@
 
 src/main/java/.model.GameBoard
 Representação do fluxo do jogo, responsável por dizer se o jogo terminou e se o tabuleiro ganhou ou não.
-Mantém uma estutura de árvore de questões e respostas.
+Mantém uma estrutura de árvore de questões e respostas.
 
 src/main/java/.model.Question
 Representação das questões e respostas (guesses) do jogo.
 
 src/main/java/.util.PrintUtil
-Classe utilitária para imprissão da árvore de perguntas e guesses.
+Classe utilitária para impressão da árvore de perguntas e guesses.
 
 src/test/java/.GameBoardUnitTest
 Testes unitários do funcionamento do modelo.

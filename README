@@ -1,22 +1,18 @@
-*** Principais classes
-
-src/main/java/.model.GameBoard
-Representação do fluxo do jogo, responsável por dizer se o jogo terminou e se o tabuleiro ganhou ou não.
-Mantém uma estrutura de árvore de questões e respostas.
-
-src/main/java/.model.Question
-Representação das questões e respostas (guesses) do jogo.
-
-src/main/java/.util.PrintUtil
-Classe utilitária para impressão da árvore de perguntas e guesses.
-
-src/test/java/.GameBoardUnitTest
-Testes unitários do funcionamento do modelo.
-
-*** Resumo da API
+# API Overview #
 
 while (!board.hasFinished()) {
-    String completeQuestionText = board.move();
+    String question = board.move();
     board.play(answer);
 }
 board.hasVictory();
+
+# Classes overview #
+
+GameBoard
+Responsibility: Control game flow. Knows if game ended and who is the winner.
+
+Question
+Responsibility: Questions and Questions.
+
+GameBoardUnitTest
+Unit tests.

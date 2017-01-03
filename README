@@ -1,3 +1,7 @@
+ Guessing game
+ 
+ We teach the app some basic types of animals and it tries to guess with one we're talking about.
+
 # API Overview #
 
 while (!board.hasFinished()) {

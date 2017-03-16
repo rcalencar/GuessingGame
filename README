@@ -1,6 +1,6 @@
- Guessing game
+Guessing game
  
- We teach the app some basic types of animals and it tries to guess with one we're talking about.
+We teach the app some basic types of animals and it tries to guess wich one we're talking about.
 
 # API Overview #
 
@@ -9,14 +9,3 @@ while (!board.hasFinished()) {
     board.play(answer);
 }
 board.hasVictory();
-
-# Classes overview #
-
-GameBoard
-Responsibility: Control game flow. Knows if game ended and who is the winner.
-
-Question
-Responsibility: Questions and Questions.
-
-GameBoardUnitTest
-Unit tests.

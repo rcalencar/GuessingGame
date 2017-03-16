@@ -149,6 +149,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
 
         public static AlertDialogFragment newInstance(String title, boolean showEditText, DialogInterface.OnClickListener onClickListener) {
             AlertDialogFragment frag = new AlertDialogFragment();
+            frag.setCancelable(false);
             frag.mListener = onClickListener;
             frag.mShowEditText = showEditText;
             Bundle args = new Bundle();

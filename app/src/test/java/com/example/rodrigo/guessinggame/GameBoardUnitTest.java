@@ -23,11 +23,6 @@ public class GameBoardUnitTest {
     public static final String DORI = "Dori";
     public static final String IS_BLUE = "is blue";
 
-    @Before
-    public void setup() {
-        GameBoard.setup("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
-    }
-
     @Test
     public void shark() throws Exception {
         System.out.println("**** You thought: " + SHARK);
@@ -36,7 +31,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.TRUE);
 
-        GameBoard board = GameBoard.createGame();
+        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -52,7 +47,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoard board = GameBoard.createGame();
+        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -78,7 +73,7 @@ public class GameBoardUnitTest {
         HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
 
-        GameBoard board = GameBoard.createGame();
+        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -94,7 +89,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoard board = GameBoard.createGame();
+        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
 
         // 1st round
         board.newGame();
@@ -149,7 +144,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.FALSE);
         answers.put(MONKEY, Boolean.TRUE);
 
-        GameBoard board = GameBoard.createGame();
+        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 

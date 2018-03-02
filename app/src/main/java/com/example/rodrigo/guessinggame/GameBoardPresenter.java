@@ -13,8 +13,7 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
 
     public GameBoardPresenter(GameBoardContract.View mView) {
         this.mView = mView;
-        GameBoard.setup("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
-        gameBoard = GameBoard.createGame();
+        gameBoard = GameBoard.createGame("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
     }
 
     // GameBoardContract.UserActionsListener

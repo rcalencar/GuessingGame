@@ -6,28 +6,21 @@ import android.support.annotation.NonNull;
  * Created by rodrigo on 22/11/15.
  */
 public class GameBoard {
-    static private boolean setup = false;
-    static private String guessText;
-    static private String questionText;
+    private String guessText;
+    private String questionText;
 
     public final Question startQuestion = new Question("lives in water", new Question("shark"), new Question("monkey"));
     private Question currentQuestion = null;
     private boolean finished = true;
     private boolean victory = false;
 
-    private GameBoard() { }
-
-    public static void setup(String questionText, String guessText) {
-        GameBoard.questionText = questionText;
-        GameBoard.guessText = guessText;
-        GameBoard.setup = true;
+    private GameBoard(String questionText, String guessText) {
+        this.questionText = questionText;
+        this.guessText = guessText;
     }
 
-    public static GameBoard createGame() {
-        if(!setup){
-            throw new IllegalStateException("Must call setup before getInstance.");
-        }
-        return new GameBoard();
+    public static GameBoard createGame(String questionText, String guessText) {
+        return new GameBoard(questionText, guessText);
     }
 
     public void newGame() {

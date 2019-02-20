@@ -13,3 +13,7 @@ while (!board.hasFinished()) {
 }
 board.hasVictory();
 ```
+
+###
+
+<img src="game.gif" width="300"/>

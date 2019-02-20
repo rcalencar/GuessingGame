@@ -1,4 +1,4 @@
-# Animal-guessing game
+# Guessing game
 
 Android app that illustrates the use of a binary tree in a small animal-guessing game.
 

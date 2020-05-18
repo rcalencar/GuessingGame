@@ -2,10 +2,12 @@ package com.example.rodrigo.guessinggame;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -50,7 +54,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-        Button yes = (Button) root.findViewById(R.id.buttonYes);
+        Button yes = root.findViewById(R.id.buttonYes);
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +62,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
             }
         });
 
-        Button no = (Button) root.findViewById(R.id.buttonNo);
+        Button no = root.findViewById(R.id.buttonNo);
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +74,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         if(mText != null) {
@@ -86,6 +90,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
                 mActionsListener.startGame();
             }
         });
+        assert getFragmentManager() != null;
         newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
@@ -104,6 +109,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
                 mActionsListener.newGame();
             }
         });
+        assert getFragmentManager() != null;
         newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
@@ -114,10 +120,11 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
         final AlertDialogFragment newFragment = AlertDialogFragment.newInstance(text, true, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int whichButton) {
                 Dialog dialog  = (Dialog) dialogInterface;
-                EditText editText = (EditText) dialog.findViewById(R.id.input_dialog);
+                EditText editText = dialog.findViewById(R.id.input_dialog);
                 mActionsListener.addAnimal(editText.getText().toString());
             }
         });
+        assert getFragmentManager() != null;
         newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
@@ -127,10 +134,11 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
         final DialogFragment newFragment = AlertDialogFragment.newInstance(text, true, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int whichButton) {
                 Dialog dialog  = (Dialog) dialogInterface;
-                EditText editText = (EditText) dialog.findViewById(R.id.input_dialog);
+                EditText editText = dialog.findViewById(R.id.input_dialog);
                 mActionsListener.addQuestion(editText.getText().toString());
             }
         });
+        assert getFragmentManager() != null;
         newFragment.show(getFragmentManager(), DIALOG_FRAGMENT_NAME);
     }
 
@@ -166,10 +174,12 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
             setRetainInstance(true);
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            assert getArguments() != null;
             String title = getArguments().getString("title");
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                     .setTitle(title)
                     .setPositiveButton(R.string.alert_dialog_ok, mListener);
 
@@ -190,7 +200,7 @@ public class MainActivityFragment extends Fragment implements GameBoardContract.
     }
 
     private void setQuestionText() {
-        TextView textView = (TextView) getView().findViewById(R.id.question);
+        TextView textView = Objects.requireNonNull(getView()).findViewById(R.id.question);
         textView.setText(mText);
     }
 }

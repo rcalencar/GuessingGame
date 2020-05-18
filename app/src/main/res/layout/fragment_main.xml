@@ -14,7 +14,7 @@
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guessing game" />
+        android:text="@string/guessing_game" />
 
     <LinearLayout
         android:layout_width="match_parent"

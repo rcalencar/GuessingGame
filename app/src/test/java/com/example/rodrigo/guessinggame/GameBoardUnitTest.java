@@ -1,11 +1,10 @@
 package com.example.rodrigo.guessinggame;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.example.rodrigo.guessinggame.model.GameBoard;
 import com.example.rodrigo.guessinggame.util.PrintUtil;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -24,10 +23,10 @@ public class GameBoardUnitTest {
     public static final String IS_BLUE = "is blue";
 
     @Test
-    public void shark() throws Exception {
+    public void shark() {
         System.out.println("**** You thought: " + SHARK);
 
-        HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.TRUE);
 
@@ -40,10 +39,10 @@ public class GameBoardUnitTest {
     }
 
     @Test
-    public void bruce() throws Exception {
+    public void bruce() {
         System.out.println("**** You thought: " + NEMO + " plus " + SHARK);
 
-        HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
@@ -67,10 +66,10 @@ public class GameBoardUnitTest {
     }
 
     @Test
-    public void sharkIncomplete() throws Exception {
+    public void sharkIncomplete() {
         System.out.println("**** You thought: " + SHARK + ", but incomplete answers.");
 
-        HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
 
         GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
@@ -82,10 +81,10 @@ public class GameBoardUnitTest {
     }
 
     @Test
-    public void findingNemo() throws Exception {
+    public void findingNemo() {
         System.out.println("**** Finding Nemo");
 
-        HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
@@ -137,10 +136,10 @@ public class GameBoardUnitTest {
     }
 
     @Test
-    public void monkey() throws Exception {
+    public void monkey() {
         System.out.println("**** You thought: " + MONKEY);
 
-        HashMap<String, Boolean> answers = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.FALSE);
         answers.put(MONKEY, Boolean.TRUE);
 
@@ -152,7 +151,7 @@ public class GameBoardUnitTest {
         assertTrue(board.hasVictory());
     }
 
-    private void playA_Game(GameBoard board, HashMap<String, Boolean> answers) throws Exception {
+    private void playA_Game(GameBoard board, HashMap<String, Boolean> answers) {
 
         while (!board.hasFinished()) {
             String completeQuestionText = board.move();
@@ -170,10 +169,6 @@ public class GameBoardUnitTest {
 
     @Nullable
     private Boolean getAnswer(GameBoard board, HashMap<String, Boolean> answers) {
-        Boolean answer = answers.get(board.getQuestionText());
-        if (answer == null) {
-            return null;
-        }
-        return answer;
+        return answers.get(board.getQuestionText());
     }
 }

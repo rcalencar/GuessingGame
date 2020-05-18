@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 'android-R'
 
     defaultConfig {
         applicationId "com.example.rodrigo.guessinggame"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 'R'
         versionCode 1
         versionName "1.0"
     }
@@ -22,8 +22,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
     testImplementation "org.mockito:mockito-all:1.10.19"
     testImplementation "org.hamcrest:hamcrest-all:1.3"

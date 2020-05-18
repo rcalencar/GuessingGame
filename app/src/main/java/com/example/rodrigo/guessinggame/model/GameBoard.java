@@ -1,13 +1,13 @@
 package com.example.rodrigo.guessinggame.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by rodrigo on 22/11/15.
  */
 public class GameBoard {
-    private String guessText;
-    private String questionText;
+    private final String guessText;
+    private final String questionText;
 
     public final Question startQuestion = new Question("lives in water", new Question("shark"), new Question("monkey"));
     private Question currentQuestion = null;

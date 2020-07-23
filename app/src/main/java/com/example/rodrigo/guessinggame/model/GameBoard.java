@@ -53,23 +53,19 @@ public class GameBoard {
         }
     }
 
-    public void addAnimal(String animalName, String newQuestionText) {
-        Question parent = currentQuestion.getParent();
-
-        if(parent.getYes() == currentQuestion) {
-            Question question = parent.getYes();
-            Question _new = newQuestion(animalName, newQuestionText, question);
-            parent.setYes(_new);
+    public void addNewAnimal(String animalName, String newQuestionText) {
+        if(currentQuestion.getParent().getYes() == currentQuestion) {
+            Question newYes = newQuestion(animalName, newQuestionText, currentQuestion.getParent().getYes());
+            currentQuestion.getParent().setYes(newYes);
         } else {
-            Question question = parent.getNo();
-            Question _new = newQuestion(animalName, newQuestionText, question);
-            parent.setNo(_new);
+            Question newNo = newQuestion(animalName, newQuestionText, currentQuestion.getParent().getNo());
+            currentQuestion.getParent().setNo(newNo);
         }
     }
 
     @NonNull
-    private Question newQuestion(String animalName, String newQuestionText, Question parentYes) {
-        return new Question(newQuestionText, new Question(animalName), parentYes);
+    private Question newQuestion(String animalName, String newQuestionText, Question currentQuestion) {
+        return new Question(newQuestionText, new Question(animalName), currentQuestion);
     }
 
     public boolean hasFinished() {

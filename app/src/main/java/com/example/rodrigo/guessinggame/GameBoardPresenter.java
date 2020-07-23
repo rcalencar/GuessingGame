@@ -60,7 +60,7 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
     // GameBoardContract.UserActionsListener
     @Override
     public void addQuestion(String text) {
-        gameBoard.addAnimal(mNewAnimal, text);
+        gameBoard.addNewAnimal(mNewAnimal, text);
         mView.finishGame("Let's try again!");
     }
 }

@@ -53,7 +53,7 @@ public class GameBoardUnitTest {
         assertTrue(board.hasFinished());
         assertFalse(board.hasVictory());
 
-        board.addAnimal(NEMO, GETS_LOST);
+        board.addNewAnimal(NEMO, GETS_LOST);
 
         answers.put(GETS_LOST, Boolean.FALSE);
         answers.put(SHARK, Boolean.TRUE);
@@ -98,7 +98,7 @@ public class GameBoardUnitTest {
         assertFalse(board.hasVictory());
 
         System.out.println("Adding " + NEMO + " - " + GETS_LOST);
-        board.addAnimal(NEMO, GETS_LOST);
+        board.addNewAnimal(NEMO, GETS_LOST);
 
         answers.put(GETS_LOST, Boolean.TRUE);
         answers.put(NEMO, Boolean.TRUE);
@@ -120,7 +120,7 @@ public class GameBoardUnitTest {
         assertFalse(board.hasVictory());
 
         System.out.println("Adding " + DORI + " - " + IS_BLUE);
-        board.addAnimal(DORI, IS_BLUE);
+        board.addNewAnimal(DORI, IS_BLUE);
 
         answers.put(DORI, Boolean.TRUE);
         answers.put(IS_BLUE, Boolean.TRUE);

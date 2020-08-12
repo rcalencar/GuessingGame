@@ -1,17 +1,17 @@
 package com.example.rodrigo.guessinggame.util;
 
-import com.example.rodrigo.guessinggame.model.Question;
+import com.example.rodrigo.guessinggame.model.QuestionKt;
 
 /**
  * Created by rodrigo on 24/11/15.
  */
 public class PrintUtil {
 
-    public static void print(Question question) {
+    public static void print(QuestionKt question) {
         print(question, "");
     }
 
-    private static void print(Question q, String s) {
+    private static void print(QuestionKt q, String s) {
 
         boolean fullPath = true;
 

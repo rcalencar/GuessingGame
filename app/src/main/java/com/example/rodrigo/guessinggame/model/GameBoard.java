@@ -9,8 +9,8 @@ public class GameBoard {
     private final String guessText;
     private final String questionText;
 
-    public final Question startQuestion = new Question("lives in water", new Question("shark"), new Question("monkey"));
-    private Question currentQuestion = null;
+    public final QuestionKt startQuestion = new QuestionKt("lives in water", false, null, new QuestionKt("shark", true), new QuestionKt("monkey", true));
+    private QuestionKt currentQuestion = null;
     private boolean finished = true;
     private boolean victory = false;
 
@@ -30,7 +30,7 @@ public class GameBoard {
 
     public String move() {
         String text;
-        if(currentQuestion.isGuessing()) {
+        if(currentQuestion.getGuessing()) {
             text = String.format(guessText, currentQuestion.getQuestionText());
         } else {
             text = String.format(questionText, currentQuestion.getQuestionText());
@@ -40,7 +40,7 @@ public class GameBoard {
     }
 
     public void play(boolean answer) {
-        if(currentQuestion.isGuessing()) {
+        if(currentQuestion.getGuessing()) {
             victory  = answer;
             finished = true;
 
@@ -54,18 +54,19 @@ public class GameBoard {
     }
 
     public void addNewAnimal(String animalName, String newQuestionText) {
-        if(currentQuestion.getParent().getYes() == currentQuestion) {
-            Question newYes = newQuestion(animalName, newQuestionText, currentQuestion.getParent().getYes());
-            currentQuestion.getParent().setYes(newYes);
+        QuestionKt parent = currentQuestion.getParent();
+        if(parent.getYes() == currentQuestion) {
+            QuestionKt newYes = newQuestion(animalName, newQuestionText, parent.getYes());
+            parent.setYes(newYes);
         } else {
-            Question newNo = newQuestion(animalName, newQuestionText, currentQuestion.getParent().getNo());
-            currentQuestion.getParent().setNo(newNo);
+            QuestionKt newNo = newQuestion(animalName, newQuestionText, parent.getNo());
+            parent.setYes(newNo);
         }
     }
 
     @NonNull
-    private Question newQuestion(String animalName, String newQuestionText, Question currentQuestion) {
-        return new Question(newQuestionText, new Question(animalName), currentQuestion);
+    private QuestionKt newQuestion(String animalName, String newQuestionText, QuestionKt currentQuestion) {
+        return new QuestionKt(newQuestionText, false, null, new QuestionKt(animalName, true), currentQuestion);
     }
 
     public boolean hasFinished() {

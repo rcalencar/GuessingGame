@@ -1,6 +1,6 @@
 package com.example.rodrigo.guessinggame;
 
-import com.example.rodrigo.guessinggame.model.GameBoard;
+import com.example.rodrigo.guessinggame.model.GameBoardKt;
 
 /**
  * Created by rodrigo on 25/11/15.
@@ -8,12 +8,12 @@ import com.example.rodrigo.guessinggame.model.GameBoard;
 public class GameBoardPresenter implements GameBoardContract.UserActionsListener {
 
     private final GameBoardContract.View mView;
-    private final GameBoard gameBoard;
+    private final GameBoardKt gameBoard;
     private String mNewAnimal;
 
     public GameBoardPresenter(GameBoardContract.View mView) {
         this.mView = mView;
-        gameBoard = GameBoard.createGame("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        gameBoard = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
     }
 
     // GameBoardContract.UserActionsListener
@@ -36,8 +36,8 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
     public void answer(boolean answer) {
         gameBoard.play(answer);
 
-        if(gameBoard.hasFinished()) {
-            if(gameBoard.hasVictory()) {
+        if(gameBoard.getFinished()) {
+            if(gameBoard.getVictory()) {
                 mView.finishGame("I win again!");
 
             } else {
@@ -54,7 +54,7 @@ public class GameBoardPresenter implements GameBoardContract.UserActionsListener
     @Override
     public void addAnimal(String name) {
         mNewAnimal = name;
-        mView.showAddNewAnimalQuestion("A " + name + "_________ but a " + gameBoard.getQuestionText() + " does not.") ;
+        mView.showAddNewAnimalQuestion("A " + name + "_________ but a " + gameBoard.getCurrentQuestion().getQuestionText() + " does not.") ;
     }
 
     // GameBoardContract.UserActionsListener

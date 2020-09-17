@@ -2,7 +2,7 @@ package com.example.rodrigo.guessinggame;
 
 import androidx.annotation.Nullable;
 
-import com.example.rodrigo.guessinggame.model.GameBoard;
+import com.example.rodrigo.guessinggame.model.GameBoardKt;
 import com.example.rodrigo.guessinggame.util.PrintUtil;
 
 import org.junit.Test;
@@ -30,12 +30,12 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.TRUE);
 
-        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertTrue(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertTrue(board.getVictory());
     }
 
     @Test
@@ -46,12 +46,12 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertFalse(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertFalse(board.getVictory());
 
         board.addNewAnimal(NEMO, GETS_LOST);
 
@@ -61,8 +61,8 @@ public class GameBoardUnitTest {
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertTrue(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertTrue(board.getVictory());
     }
 
     @Test
@@ -72,12 +72,12 @@ public class GameBoardUnitTest {
         HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
 
-        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
-        assertFalse(board.hasFinished());
-        assertFalse(board.hasVictory());
+        assertFalse(board.getFinished());
+        assertFalse(board.getVictory());
     }
 
     @Test
@@ -88,14 +88,14 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
 
         // 1st round
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertFalse(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertFalse(board.getVictory());
 
         System.out.println("Adding " + NEMO + " - " + GETS_LOST);
         board.addNewAnimal(NEMO, GETS_LOST);
@@ -107,8 +107,8 @@ public class GameBoardUnitTest {
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertTrue(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertTrue(board.getVictory());
 
         answers.put(NEMO, Boolean.FALSE);
 
@@ -116,8 +116,8 @@ public class GameBoardUnitTest {
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertFalse(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertFalse(board.getVictory());
 
         System.out.println("Adding " + DORI + " - " + IS_BLUE);
         board.addNewAnimal(DORI, IS_BLUE);
@@ -129,10 +129,10 @@ public class GameBoardUnitTest {
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertTrue(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertTrue(board.getVictory());
 
-        PrintUtil.print(board.startQuestion);
+        PrintUtil.print(board.getRootQuestion());
     }
 
     @Test
@@ -143,17 +143,17 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.FALSE);
         answers.put(MONKEY, Boolean.TRUE);
 
-        GameBoard board = GameBoard.createGame("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
-        assertTrue(board.hasFinished());
-        assertTrue(board.hasVictory());
+        assertTrue(board.getFinished());
+        assertTrue(board.getVictory());
     }
 
-    private void playA_Game(GameBoard board, HashMap<String, Boolean> answers) {
+    private void playA_Game(GameBoardKt board, HashMap<String, Boolean> answers) {
 
-        while (!board.hasFinished()) {
+        while (!board.getFinished()) {
             String completeQuestionText = board.move();
 
             Boolean answer = getAnswer(board, answers);
@@ -163,12 +163,12 @@ public class GameBoardUnitTest {
             board.play(answer);
         }
 
-        System.out.println("It has finished: " + board.hasFinished());
-        System.out.println("I won: " + board.hasVictory());
+        System.out.println("It has finished: " + board.getFinished());
+        System.out.println("I won: " + board.getVictory());
     }
 
     @Nullable
-    private Boolean getAnswer(GameBoard board, HashMap<String, Boolean> answers) {
-        return answers.get(board.getQuestionText());
+    private Boolean getAnswer(GameBoardKt board, HashMap<String, Boolean> answers) {
+        return answers.get(board.getCurrentQuestion().getQuestionText());
     }
 }

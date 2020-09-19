@@ -1,21 +1,32 @@
 package com.example.rodrigo.guessinggame.model
 
-class QuestionKt(var questionText: String, var guessing: Boolean, var parent: QuestionKt? = null, yes: QuestionKt? = null, no: QuestionKt? = null) {
-    constructor(questionText: String, guessing: Boolean) : this(questionText, guessing, null, null, null)
+interface Question {
+    val questionText: String
+}
 
-    var yes: QuestionKt? = yes
-        set(value) {
-            value!!.parent = this
-            field = value
-        }
-    var no: QuestionKt? = no
-        set(value) {
-            value!!.parent = this
-            field = value
-        }
+interface Child : Question {
+    var parent: Parent
+}
 
+interface Parent : Question {
+    var yes: Child
+    var no: Child
+}
+
+open class GameRoot(override val questionText: String, override var yes: Child, override var no: Child) : Parent {
     init {
-        this.yes?.parent = this
-        this.no?.parent = this
+        yes.parent = this
+        no.parent = this
     }
+}
+
+class GameQuestion(override val questionText: String, override var parent: Parent, override var yes: Child, override var no: Child) : Parent, Child {
+    init {
+        yes.parent = this
+        no.parent = this
+    }
+}
+
+class GameGuess(override val questionText: String) : Child {
+    override lateinit var parent: Parent
 }

@@ -2,12 +2,16 @@ package com.example.rodrigo.guessinggame
 
 import com.example.rodrigo.guessinggame.model.GameBoardKt
 
-class GameBoardPresenterKt(private val view: GameBoardContract.View) : GameBoardContract.UserActionsListener {
-    private val gameBoard = GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?")
-    var newAnimalName: String? = null
+class GameBoardPresenterKt(private val view: GameBoardContract.View) :
+    GameBoardContract.UserActionsListener {
+    private val gameBoard = GameBoardKt(
+        "Does the animal that you thought about %s?",
+        "Is the animal that you thought about a %s?"
+    )
+    private var newAnimalName: String = ""
 
     override fun newGame() {
-        newAnimalName = null
+        newAnimalName = ""
         gameBoard.newGame()
         view.showWelcomeMessage("Think about an animal...")
     }
@@ -30,13 +34,13 @@ class GameBoardPresenterKt(private val view: GameBoardContract.View) : GameBoard
         }
     }
 
-    override fun addAnimal(name: String?) {
+    override fun addAnimal(name: String) {
         newAnimalName = name
-        view.showAddNewAnimalQuestion("A " + name + "_________ but a " + gameBoard.currentQuestion!!.questionText + " does not.")
+        view.showAddNewAnimalQuestion("A " + name + "_________ but a " + gameBoard.currentQuestion.questionText + " does not.")
     }
 
-    override fun addQuestion(text: String?) {
-        gameBoard.addNewAnimal(newAnimalName!!, text!!)
+    override fun addQuestion(text: String) {
+        gameBoard.addNewAnimal(newAnimalName, text)
         view.finishGame("Let's try again!")
     }
 }

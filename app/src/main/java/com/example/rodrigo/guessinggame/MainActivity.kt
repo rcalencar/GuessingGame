@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
             Log.d(LOG_TAG, "onCreate adding fragment")
             // During initial setup, plug in the fragment.
             val fragment = MainActivityFragmentKt()
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_gameboard, fragment, "fragment_gameboard").commit()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_gameboard, fragment, "fragment_gameboard").commit()
         }
     }
 

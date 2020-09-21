@@ -7,8 +7,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 
 class AlertDialogFragment : DialogFragment() {
-    var listener : DialogInterface.OnClickListener? = null
-    var showEditText = false
+    var listener: DialogInterface.OnClickListener? = null
+    var showEditText: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +17,10 @@ class AlertDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val title = arguments!!.getString("title")
-        val builder = AlertDialog.Builder(activity!!).setTitle(title).setPositiveButton(R.string.alert_dialog_ok, listener)
+        val builder = AlertDialog.Builder(activity!!).setTitle(title)
+            .setPositiveButton(R.string.alert_dialog_ok, listener)
 
-        if(showEditText) {
+        if (showEditText) {
             builder.setView(R.layout.input_dialog)
         }
 
@@ -28,13 +29,17 @@ class AlertDialogFragment : DialogFragment() {
 
     override fun onDestroyView() {
         if (dialog != null && retainInstance) {
-            dialog!!.setDismissMessage(null)
+            (dialog ?: return).setDismissMessage(null)
         }
         super.onDestroyView()
     }
 }
 
-fun newAlertDialogFragment(title: String, showEditText: Boolean, onClickListener: DialogInterface.OnClickListener): AlertDialogFragment {
+fun newAlertDialogFragment(
+    title: String,
+    showEditText: Boolean,
+    onClickListener: DialogInterface.OnClickListener
+): AlertDialogFragment {
     val dialog = AlertDialogFragment()
     dialog.isCancelable = false
     dialog.listener = onClickListener

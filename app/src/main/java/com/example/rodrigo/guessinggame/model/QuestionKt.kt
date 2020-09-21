@@ -13,14 +13,23 @@ interface Parent : Question {
     var no: Child
 }
 
-open class GameRoot(override val questionText: String, override var yes: Child, override var no: Child) : Parent {
+class GameRoot(
+    override val questionText: String,
+    override var yes: Child,
+    override var no: Child
+) : Parent {
     init {
         yes.parent = this
         no.parent = this
     }
 }
 
-class GameQuestion(override val questionText: String, override var parent: Parent, override var yes: Child, override var no: Child) : Parent, Child {
+class GameQuestion(
+    override val questionText: String,
+    override var parent: Parent,
+    override var yes: Child,
+    override var no: Child
+) : Parent, Child {
     init {
         yes.parent = this
         no.parent = this

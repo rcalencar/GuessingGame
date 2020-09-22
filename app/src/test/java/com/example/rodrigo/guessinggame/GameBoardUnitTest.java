@@ -30,7 +30,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.TRUE);
 
-        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -46,7 +46,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -72,7 +72,7 @@ public class GameBoardUnitTest {
         HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
 
-        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -88,7 +88,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
 
         // 1st round
         board.newGame();
@@ -132,7 +132,8 @@ public class GameBoardUnitTest {
         assertTrue(board.getFinished());
         assertTrue(board.getVictory());
 
-        PrintUtil.print(board.getRootQuestion());
+        board.newGame();
+        PrintUtil.print(board.getCurrentQuestion());
     }
 
     @Test
@@ -143,7 +144,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.FALSE);
         answers.put(MONKEY, Boolean.TRUE);
 
-        GameBoardKt board = new GameBoardKt("Does the addAnimal that you thought about %s?", "Is the addAnimal that you thought about a %s?");
+        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 

@@ -10,13 +10,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-class MainActivityFragmentKt : Fragment(), GameBoardContract.View {
-    private lateinit var actionsListener: GameBoardPresenterKt
+class MainActivityFragment : Fragment(), GameBoardContract.View {
+    private lateinit var actionsListener: GameBoardPresenter
     private var text: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        actionsListener = GameBoardPresenterKt(this)
+        actionsListener = GameBoardPresenter(this)
         actionsListener.newGame()
     }
 

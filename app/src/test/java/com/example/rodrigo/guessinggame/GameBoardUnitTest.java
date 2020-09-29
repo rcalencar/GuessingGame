@@ -2,7 +2,7 @@ package com.example.rodrigo.guessinggame;
 
 import androidx.annotation.Nullable;
 
-import com.example.rodrigo.guessinggame.model.GameBoardKt;
+import com.example.rodrigo.guessinggame.model.GameBoard;
 import com.example.rodrigo.guessinggame.util.PrintUtil;
 
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.TRUE);
 
-        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        GameBoard board = new GameBoard("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -46,7 +46,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        GameBoard board = new GameBoard("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -72,7 +72,7 @@ public class GameBoardUnitTest {
         HashMap<String, Boolean> answers = new HashMap<>();
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
 
-        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        GameBoard board = new GameBoard("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -88,7 +88,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.TRUE);
         answers.put(SHARK, Boolean.FALSE);
 
-        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        GameBoard board = new GameBoard("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
 
         // 1st round
         board.newGame();
@@ -144,7 +144,7 @@ public class GameBoardUnitTest {
         answers.put(LIVES_IN_WATER, Boolean.FALSE);
         answers.put(MONKEY, Boolean.TRUE);
 
-        GameBoardKt board = new GameBoardKt("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
+        GameBoard board = new GameBoard("Does the animal that you thought about %s?", "Is the animal that you thought about a %s?");
         board.newGame();
         playA_Game(board, answers);
 
@@ -152,7 +152,7 @@ public class GameBoardUnitTest {
         assertTrue(board.getVictory());
     }
 
-    private void playA_Game(GameBoardKt board, HashMap<String, Boolean> answers) {
+    private void playA_Game(GameBoard board, HashMap<String, Boolean> answers) {
 
         while (!board.getFinished()) {
             String completeQuestionText = board.move();
@@ -169,7 +169,7 @@ public class GameBoardUnitTest {
     }
 
     @Nullable
-    private Boolean getAnswer(GameBoardKt board, HashMap<String, Boolean> answers) {
+    private Boolean getAnswer(GameBoard board, HashMap<String, Boolean> answers) {
         return answers.get(board.getCurrentQuestion().getQuestionText());
     }
 }

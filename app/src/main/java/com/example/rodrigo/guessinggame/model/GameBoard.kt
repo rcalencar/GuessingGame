@@ -1,6 +1,6 @@
 package com.example.rodrigo.guessinggame.model
 
-class GameBoardKt(private var questionText: String, private var guessText: String) {
+class GameBoard(private var questionText: String, private var guessText: String) {
     private var rootQuestion = GameRoot("lives in water", GameGuess("shark"), GameGuess("monkey"))
 
     lateinit var currentQuestion: Question

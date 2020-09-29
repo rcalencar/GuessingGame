@@ -1,10 +1,10 @@
 package com.example.rodrigo.guessinggame
 
-import com.example.rodrigo.guessinggame.model.GameBoardKt
+import com.example.rodrigo.guessinggame.model.GameBoard
 
-class GameBoardPresenterKt(private val view: GameBoardContract.View) :
+class GameBoardPresenter(private val view: GameBoardContract.View) :
     GameBoardContract.UserActionsListener {
-    private val gameBoard = GameBoardKt(
+    private val gameBoard = GameBoard(
         "Does the animal that you thought about %s?",
         "Is the animal that you thought about a %s?"
     )

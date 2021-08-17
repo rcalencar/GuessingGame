@@ -1,10 +1,10 @@
 package com.example.rodrigo.guessinggame
 
+import android.app.AlertDialog
 import android.app.Dialog
+import androidx.fragment.app.DialogFragment
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 
 class AlertDialogFragment : DialogFragment() {
     var listener: DialogInterface.OnClickListener? = null
@@ -16,8 +16,8 @@ class AlertDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val title = arguments!!.getString("title")
-        val builder = AlertDialog.Builder(activity!!).setTitle(title)
+        val title = requireArguments().getString("title")
+        val builder = AlertDialog.Builder(requireActivity()).setTitle(title)
             .setPositiveButton(R.string.alert_dialog_ok, listener)
 
         if (showEditText) {

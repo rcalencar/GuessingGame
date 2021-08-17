@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 class MainActivityFragment : Fragment(), GameBoardContract.View {
     private lateinit var actionsListener: GameBoardPresenter
@@ -55,10 +56,8 @@ class MainActivityFragment : Fragment(), GameBoardContract.View {
             text,
             false
         ) { _, _ -> actionsListener.startGame() }
-        if (BuildConfig.DEBUG && fragmentManager == null) {
-            error("Assertion failed")
-        }
-        dialog.show(fragmentManager ?: return, DIALOG_FRAGMENT_NAME)
+
+        dialog.show(parentFragmentManager, "dialog")
     }
 
     override fun showQuestion(text: String) {
@@ -76,7 +75,7 @@ class MainActivityFragment : Fragment(), GameBoardContract.View {
             text,
             false
         ) { _, _ -> actionsListener.newGame() }
-        fragmentManager?.let { dialogFragment.show(it, DIALOG_FRAGMENT_NAME) }
+        parentFragmentManager.let { dialogFragment.show(it, "dialog") }
     }
 
     override fun showAddNewAnimal(text: String) {
@@ -86,7 +85,7 @@ class MainActivityFragment : Fragment(), GameBoardContract.View {
                 val editText: EditText = dialog.findViewById(R.id.input_dialog)
                 actionsListener.addAnimal(editText.text.toString())
             }
-        fragmentManager?.let { dialogFragment.show(it, DIALOG_FRAGMENT_NAME) }
+        parentFragmentManager.let { dialogFragment.show(it, "dialog") }
     }
 
     override fun showAddNewAnimalQuestion(text: String) {
@@ -96,10 +95,6 @@ class MainActivityFragment : Fragment(), GameBoardContract.View {
                 val editText: EditText = dialog.findViewById(R.id.input_dialog)
                 actionsListener.addQuestion(editText.text.toString())
             }
-        fragmentManager?.let { dialogFragment.show(it, DIALOG_FRAGMENT_NAME) }
-    }
-
-    companion object {
-        const val DIALOG_FRAGMENT_NAME: String = "dialog"
+        parentFragmentManager.let { dialogFragment.show(it, "dialog") }
     }
 }

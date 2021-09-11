@@ -9,22 +9,45 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 
-class MainActivityFragment : Fragment(), GameBoardContract.View {
-    private lateinit var actionsListener: GameBoardPresenter
-    private var text: String? = null
+class MainActivityFragment : Fragment() {
+    private val model: GameViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        actionsListener = GameBoardPresenter(this)
-        actionsListener.newGame()
+
+        navigate()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private fun navigate() {
+        when (model.state) {
+            GameState.NOT_STARTED -> {
+                model.newGame()
+                showWelcomeMessage()
+            }
+            GameState.SHOW_WELCOME_MESSAGE -> {
+                showWelcomeMessage()
+            }
+            GameState.SHOW_ADD_NEW_ANIMAL -> {
+                showAddNewAnimal()
+            }
+            GameState.SHOW_ADD_NEW_ANIMAL_QUESTION -> {
+                showAddNewAnimalQuestion()
+            }
+            GameState.PLAY -> {
+                showQuestionText()
+            }
+            GameState.FINISHED -> {
+                finishGame()
+            }
+        }
+    }
 
-        retainInstance = true
+    override fun onResume() {
+        super.onResume()
+
+        model.questionText?.let { showQuestionText() }
     }
 
     override fun onCreateView(
@@ -35,65 +58,72 @@ class MainActivityFragment : Fragment(), GameBoardContract.View {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
 
         val yes: Button = root.findViewById(R.id.buttonYes)
-        yes.setOnClickListener { actionsListener.answer(true) }
+        yes.setOnClickListener { answer(true) }
 
         val no: Button = root.findViewById(R.id.buttonNo)
-        no.setOnClickListener { actionsListener.answer(false) }
+        no.setOnClickListener { answer(false) }
 
         return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        if (text != null) {
-            setQuestionText()
-        }
+    private fun answer(answer: Boolean) {
+        model.answer(answer)
+        navigate()
     }
 
-    override fun showWelcomeMessage(text: String) {
+    private fun showWelcomeMessage() {
+        val text = "Think about an animal..."
         val dialog = newAlertDialogFragment(
             text,
             false
-        ) { _, _ -> actionsListener.startGame() }
+        ) { _, _ ->
+            model.startGame()
+            navigate()
+        }
 
         dialog.show(parentFragmentManager, "dialog")
     }
 
-    override fun showQuestion(text: String) {
-        this.text = text
-        setQuestionText()
-    }
-
-    private fun setQuestionText() {
+    private fun showQuestionText() {
         val textView: TextView = (view ?: return).findViewById(R.id.question)
-        textView.text = text
+        textView.text = model.questionText
     }
 
-    override fun finishGame(text: String) {
+    private fun finishGame() {
+        val victory = "I win again!"
+        val tryAgain = "Let's try again!"
+
         val dialogFragment = newAlertDialogFragment(
-            text,
+            if (model.victory) victory else tryAgain,
             false
-        ) { _, _ -> actionsListener.newGame() }
+        ) { _, _ ->
+            model.newGame()
+            navigate()
+        }
         parentFragmentManager.let { dialogFragment.show(it, "dialog") }
     }
 
-    override fun showAddNewAnimal(text: String) {
+    private fun showAddNewAnimal() {
+        val text = "What was the animal that you thought about?"
         val dialogFragment =
             newAlertDialogFragment(text, true) { d, _ ->
                 val dialog = d as Dialog
                 val editText: EditText = dialog.findViewById(R.id.input_dialog)
-                actionsListener.addAnimal(editText.text.toString())
+                model.addAnimal(editText.text.toString())
+                navigate()
             }
         parentFragmentManager.let { dialogFragment.show(it, "dialog") }
     }
 
-    override fun showAddNewAnimalQuestion(text: String) {
+    private fun showAddNewAnimalQuestion() {
+        val text = "A " + model.newAnimalName + "_________ but a " + model.currentQuestion.questionText + " does not."
+
         val dialogFragment =
             newAlertDialogFragment(text, true) { d, _ ->
                 val dialog = d as Dialog
                 val editText: EditText = dialog.findViewById(R.id.input_dialog)
-                actionsListener.addQuestion(editText.text.toString())
+                model.addQuestion(editText.text.toString())
+                navigate()
             }
         parentFragmentManager.let { dialogFragment.show(it, "dialog") }
     }

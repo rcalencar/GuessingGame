@@ -10,11 +10,6 @@ class AlertDialogFragment : DialogFragment() {
     var listener: DialogInterface.OnClickListener? = null
     var showEditText: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val title = requireArguments().getString("title")
         val builder = AlertDialog.Builder(requireActivity()).setTitle(title)
@@ -27,11 +22,9 @@ class AlertDialogFragment : DialogFragment() {
         return builder.create()
     }
 
-    override fun onDestroyView() {
-        if (dialog != null && retainInstance) {
-            (dialog ?: return).setDismissMessage(null)
-        }
-        super.onDestroyView()
+    override fun onPause() {
+        super.onPause()
+        dismissAllowingStateLoss()
     }
 }
 

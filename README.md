@@ -2,7 +2,7 @@
 
 Android app that illustrates the use of a binary tree in a small animal-guessing game.
 
-It is also an MVP architecture example.
+It is also a ViewModel app architecture example.
 
 ###
 

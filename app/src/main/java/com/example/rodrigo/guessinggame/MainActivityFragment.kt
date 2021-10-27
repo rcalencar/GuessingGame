@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.rodrigo.guessinggame.databinding.FragmentMainBinding
 
 class MainActivityFragment : Fragment() {
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
     private val model: GameViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,16 +56,19 @@ class MainActivityFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        val view = binding.root
 
-        val yes: Button = root.findViewById(R.id.buttonYes)
-        yes.setOnClickListener { answer(true) }
+        binding.buttonYes.setOnClickListener { answer(true) }
+        binding.buttonNo.setOnClickListener { answer(false) }
 
-        val no: Button = root.findViewById(R.id.buttonNo)
-        no.setOnClickListener { answer(false) }
+        return view
+    }
 
-        return root
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun answer(answer: Boolean) {
@@ -85,8 +90,7 @@ class MainActivityFragment : Fragment() {
     }
 
     private fun showQuestionText() {
-        val textView: TextView = (view ?: return).findViewById(R.id.question)
-        textView.text = model.questionText
+        binding.question.text = model.questionText
     }
 
     private fun finishGame() {

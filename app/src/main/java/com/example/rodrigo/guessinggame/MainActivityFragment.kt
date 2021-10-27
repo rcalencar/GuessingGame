@@ -58,12 +58,14 @@ class MainActivityFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.buttonYes.setOnClickListener { answer(true) }
         binding.buttonNo.setOnClickListener { answer(false) }
-
-        return view
     }
 
     override fun onDestroyView() {
